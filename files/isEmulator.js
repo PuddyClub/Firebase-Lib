@@ -1,0 +1,1 @@
+module.exports = function () { return process.env.FUNCTIONS_EMULATOR; };
