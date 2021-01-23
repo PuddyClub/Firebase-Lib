@@ -3,7 +3,7 @@ module.exports = function (mysql, databases, cfg) {
 
         // Get Module
         try {
-            return require('@tinypudding/mysql-connector').create(mysql, databases, cfg, 'firebase').then(data => {
+            require('@tinypudding/mysql-connector').create(mysql, databases, cfg, 'firebase').then(data => {
                 resolve(data);
                 return;
             }).catch(err => {
