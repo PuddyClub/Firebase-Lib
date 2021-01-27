@@ -123,9 +123,7 @@ firebaseObject.start = function (admin, item, data) {
                 // Read Data
                 if (data) {
                     for (const data_item in data) {
-                        if (data_item !== "credential") {
-                            firebase_settings[data_item] = data[data_item];
-                        }
+                        firebase_settings[data_item] = data[data_item];
                     }
                 }
 
