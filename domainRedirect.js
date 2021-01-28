@@ -5,8 +5,14 @@ module.exports = function (domains = ['localhost:5000', 'example.com'], baseurl 
         // Invalid Domain Detected
         if (!domains.includes(req.headers['x-forwarded-host'])) {
 
+            // No Callback
             if (typeof callback !== "function") {
                 return res.status(301).redirect(baseurl + req.url);
+            }
+
+            // Yes
+            else {
+                callback(req, res, next);
             }
 
         }
