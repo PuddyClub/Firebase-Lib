@@ -19,6 +19,9 @@ firebaseObject.get = function (value) {
 
 };
 
+// Domain Redirect
+firebaseObject.domainRedirect = require('./domainRedirect');
+
 // Encode
 firebaseObject.escape = require('./escape');
 
