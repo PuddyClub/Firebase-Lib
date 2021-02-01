@@ -13,7 +13,7 @@ const logBase = function (type, args) {
                 logger = require("firebase-functions/lib/logger");
             } catch (err) {
                 logger = null;
-                console.error(err.message);
+                console.error('Firebase Logger Module not found or something happened.');
             }
         }
 
