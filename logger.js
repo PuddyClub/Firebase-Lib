@@ -13,7 +13,7 @@ const logBase = function (type, args) {
                 logger = require("firebase-functions/lib/logger");
             } catch (err) {
                 logger = null;
-                console.error(err);
+                console.error(err.message);
             }
         }
 
