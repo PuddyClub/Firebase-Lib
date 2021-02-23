@@ -2,7 +2,7 @@
 let logger = null;
 
 // Module Base
-const logBase = function (type, args) {
+const logBase = async  function (type, args) {
 
     // Production
     if (!require('./isEmulator')()) {
@@ -19,8 +19,9 @@ const logBase = function (type, args) {
 
         // Exist Log
         if (logger) {
+            const result = await logger[type].apply(logger, args);
             return {
-                result: logger[type].apply(logger, args),
+                result: result,
                 type: 'firebase-functions/lib/logger'
             };
         }
