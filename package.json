@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/TinyPudding/Firebase-Lib/issues"
   },
-  "homepage": "https://github.com/TinyPudding/Firebase-Lib#readme"
+  "homepage": "https://github.com/TinyPudding/Firebase-Lib#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
