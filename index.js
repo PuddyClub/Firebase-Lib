@@ -22,6 +22,9 @@ firebaseObject.get = function (value) {
 // Domain Redirect
 firebaseObject.domainRedirect = require('./domainRedirect');
 
+// Database
+firebaseObject.database = require('./database');
+
 // Encode
 firebaseObject.escape = require('./escape');
 
