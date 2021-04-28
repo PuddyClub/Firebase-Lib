@@ -2,7 +2,7 @@
 const presenceSystem = {
 
     // Get Browser Version
-    browserVersion: function(lodash = '_') {
+    browserVersion: function (lodash = '_') {
 
         // Get Browser Version
         return presenceSystem.start.toString()
@@ -18,14 +18,14 @@ const presenceSystem = {
 
         // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
         // any time that connectionsRef's value is null (i.e. has no children) I am offline
-        /* myConnectionsRef */
-    
+        if (typeof myConnectionsRef === "string") { myConnectionsRef = database.ref(myConnectionsRef); }
+
         // stores the timestamp of my last disconnect (the last time I was seen online)
-        /* lastOnlineRef */
-    
+        if (typeof lastOnlineRef === "string") { lastOnlineRef = database.ref(lastOnlineRef); }
+
         // Get Base
         data = require('lodash').defaultsDeep({}, data, {
-    
+
             // Remove Error
             removeError: (err) => {
                 if (err) {
@@ -37,27 +37,27 @@ const presenceSystem = {
 
             // Is Connected
             connected: true,
-    
+
             // Get Data
             getDate: function () {
-    
+
                 // Prepare Values
                 let momentTime;
                 let moment;
-    
+
                 // Get Moment Timezone
                 try {
                     moment = require('moment-timezone');
                 } catch (err) {
                     moment = null;
                 }
-    
+
                 // Timezone Module
                 if (moment) { momentTime = moment.utc().toObject(); }
-    
+
                 // Vanilla
                 else {
-    
+
                     const date = new Date();
                     momentTime = {
                         date: date.getUTCDate(),
@@ -68,41 +68,41 @@ const presenceSystem = {
                         seconds: date.getUTCSeconds(),
                         years: date.getUTCFullYear()
                     };
-    
+
                 }
-    
+
                 // Insert Timezone Name
                 momentTime.timezone = 'Universal';
-    
+
                 // Return the value
                 return momentTime;
-    
+
             }
-    
+
         });
-    
+
         // Prepare Connection
         const connectedRef = database.ref('.info/connected');
         connectedRef.on('value', (snap) => {
             if (snap.val() === true) {
-    
+
                 // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
                 const con = myConnectionsRef.push();
-    
+
                 // When I disconnect, remove this device
                 con.onDisconnect().remove(data.removeError);
-    
+
                 // Add this device to my connections list
                 // this value could contain info about the device or a timestamp too
                 con.set(data.connected);
-    
+
                 // When I disconnect, update the last time I was seen online
                 const momentTime = data.getDate();
                 lastOnlineRef.onDisconnect().set(momentTime);
-    
+
             }
         });
-    
+
     }
 
 };
