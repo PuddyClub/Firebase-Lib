@@ -1,6 +1,6 @@
 {
   "name": "@tinypudding/firebase-lib",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Code Lib to help Tiny Pudding repositories work with the Firebase API.",
   "main": "index.js",
   "scripts": {
