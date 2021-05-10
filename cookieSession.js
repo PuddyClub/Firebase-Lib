@@ -62,7 +62,7 @@ class authSystem {
     // Cookie Session Generator
     genCookieSession(auth, token) {
         const tinyThis = this;
-        return Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             auth.verifyIdToken(token).then(async (decodedIdToken) => {
 
                 // Try
@@ -73,7 +73,7 @@ class authSystem {
                     if (checkedTime) {
 
                         // Create Session
-                        const expiresIn = await tinyThis.setCookieTimeGenerator(decodedIdToken);
+                        const expiresIn = await tinyThis.cookieTimeGenerator(decodedIdToken);
                         auth.createSessionCookie(token, { expiresIn }).then((sessionCookie) => {
                             resolve(sessionCookie); return;
                         }).catch(err => { reject(err); return; });
