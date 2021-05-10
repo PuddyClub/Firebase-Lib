@@ -74,7 +74,7 @@ class authSystem {
 
                         // Create Session
                         const expiresIn = await tinyThis.setCookieTimeGenerator(decodedIdToken);
-                        auth.createSessionCookie(idToken, { expiresIn }).then((sessionCookie) => {
+                        auth.createSessionCookie(token, { expiresIn }).then((sessionCookie) => {
                             resolve(sessionCookie); return;
                         }).catch(err => { reject(err); return; });
 
