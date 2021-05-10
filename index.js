@@ -19,6 +19,9 @@ firebaseObject.get = function (value) {
 
 };
 
+// Cookie Session
+firebaseObject.cookieSession = require('./cookieSession');
+
 // Domain Redirect
 firebaseObject.domainRedirect = require('./domainRedirect');
 
