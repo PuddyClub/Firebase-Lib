@@ -82,7 +82,7 @@ const tinyAction = async function (where, type, args) {
 };
 
 // Is Debug
-let isDebug = require('./isDebug')();
+let isDebug = false;
 
 // Modules
 const moment = require('moment-timezone');
@@ -163,6 +163,9 @@ module.exports = {
     get: function (where) { return loggerGenerator(where); },
 
     // Cache Limit
-    changeCacheLimit: function (value) { if (typeof value === "number") { cacheLimit = value; } }
+    changeCacheLimit: function (value) { if (typeof value === "number") { cacheLimit = value; } return; },
+
+    // Set Is Debug
+    setDebugMode: function (value) { isDebug = value; return; }
 
 };
