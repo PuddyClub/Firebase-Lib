@@ -86,7 +86,7 @@ let isDebug = false;
 
 // Modules
 const moment = require('moment-timezone');
-const getDBData = require('@tinypudding/firebase-lib/getDBData');
+const getDBData = require('./getDBData');
 const checkLastTime = function (value) {
 
     // Update
