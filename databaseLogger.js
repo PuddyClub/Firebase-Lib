@@ -24,56 +24,67 @@ if (!('toJSON' in Error.prototype)) {
 
 const tinyAction = async function (where, type, args) {
 
-    // Production
-    if (!isDebug) {
+    // Try
+    try {
 
-        // Date Now
-        const now = moment();
+        // Production
+        if (!isDebug) {
 
-        // Update Counter
-        let count = tinyCache[where].count[type];
-        tinyCache[where].count[type]++;
+            // Date Now
+            const now = moment();
 
-        // New Date
-        if ((lastUpdate.moment && lastUpdate.moment.date() !== now.date()) || tinyCache[where].count[type] > cacheLimit) {
-            await tinyCache[where].db.remove();
-            for (const item in tinyCache[where].count) { tinyCache[where].count[item] = 0; }
-        }
+            // Update Counter
+            let count = tinyCache[where].count[type];
+            tinyCache[where].count[type]++;
 
-        // Update Time
-        lastUpdate.moment = now;
-        lastUpdate.number = lastUpdate.moment.valueOf();
-
-        // Check Args
-        const insertArgs = [];
-        for (const item in args) {
-
-            // Is Error
-            if (args[item] instanceof Error) {
-                try { args[item] = JSON.parse(JSON.stringify(args[item])); } catch (err) { console.error(err); }
+            // New Date
+            if ((lastUpdate.moment && lastUpdate.moment.date() !== now.date()) || tinyCache[where].count[type] > cacheLimit) {
+                await tinyCache[where].db.remove();
+                for (const item in tinyCache[where].count) { tinyCache[where].count[item] = 0; }
             }
 
-            // Object Type
-            const type = objType(args[item]);
+            // Update Time
+            lastUpdate.moment = now;
+            lastUpdate.number = lastUpdate.moment.valueOf();
 
-            // Insert Args
-            if (type === "string" || type === "number" || type === "object" || type === "array") {
-                insertArgs.push(args[item]);
+            // Check Args
+            const insertArgs = [];
+            for (const item in args) {
+
+                // Is Error
+                if (args[item] instanceof Error) {
+                    try { args[item] = JSON.parse(JSON.stringify(args[item])); } catch (err) { console.error(err); }
+                }
+
+                // Object Type
+                const type = objType(args[item]);
+
+                // Insert Args
+                if (type === "string" || type === "number" || type === "object" || type === "array") {
+                    insertArgs.push(args[item]);
+                }
+
             }
 
+            // Add Log
+            if (insertArgs.length > 0) {
+                await tinyCache[where].db.child(type).child(count).set({
+                    time: lastUpdate.number,
+                    args: insertArgs
+                });
+            }
+
+            // Nope
+            else { tinyCache[where].count[type]--; if (tinyCache[where].count[type] < 0) { tinyCache[where].count[type] = 0; } }
+
         }
 
-        // Add Log
-        if (insertArgs.length > 0) {
-            await tinyCache[where].db.child(type).child(count).set({
-                time: lastUpdate.number,
-                args: insertArgs
-            });
-        }
+    }
 
-        // Nope
-        else { tinyCache[where].count[type]--; if (tinyCache[where].count[type] < 0) { tinyCache[where].count[type] = 0; } }
-
+    // Error
+    catch (err) {
+        console.error(`ERROR IN ${where} (${type})!`);
+        console.error(err);
     }
 
     // Complete
