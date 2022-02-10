@@ -1,6 +1,10 @@
 module.exports = {
 
     // Presence
-    'presence': require('./presence')
+    'presence': require('./presence'),
+
+
+    // Save Async
+    'saveAsync': require('./saveAsync')
 
 };
