@@ -1,25 +1,25 @@
 {
-  "name": "@tinypudding/firebase-lib",
-  "version": "1.0.13",
-  "description": "Code Lib to help Tiny Pudding repositories work with the Firebase API.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TinyPudding/Firebase-Lib.git"
-  },
-  "keywords": [
-    "firebase"
-  ],
-  "author": "Yasmin Seidel (JasminDreasond)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TinyPudding/Firebase-Lib/issues"
-  },
-  "homepage": "https://github.com/TinyPudding/Firebase-Lib#readme",
-  "dependencies": {
-    "lodash": "^4.17.21"
-  }
+    "name": "@tinypudding/firebase-lib",
+    "version": "1.0.14",
+    "description": "Code Lib to help Tiny Pudding repositories work with the Firebase API.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TinyPudding/Firebase-Lib.git"
+    },
+    "keywords": [
+        "firebase"
+    ],
+    "author": "Yasmin Seidel (JasminDreasond)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/TinyPudding/Firebase-Lib/issues"
+    },
+    "homepage": "https://github.com/TinyPudding/Firebase-Lib#readme",
+    "dependencies": {
+        "lodash": "^4.17.21"
+    }
 }
