@@ -14,8 +14,8 @@ const loopInteraction = function (data) {
         if (objType(data[item], 'object') || Array.isArray(data[item])) {
             interaction[item] = {};
             interaction[item] = loopInteraction(data[item]);
-        } 
-        
+        }
+
         // BigInt
         else if (objType(data[item], 'bigint')) {
             data[item] = { _type_object: 'BIGINT', value: data[item].toString() };
@@ -67,8 +67,12 @@ const logBase = async function (type, args) {
             let argData = clone(args);
             loopInteraction(argData);
 
+            if (objType(argData, 'object') || Array.isArray(argData)) {
+                argData = JSON.stringify(argData, null, 2);
+            }
+
             const result = await logger[type].apply(logger, argData);
-            
+
             return {
                 result: result,
                 type: 'firebase-functions/logger'
