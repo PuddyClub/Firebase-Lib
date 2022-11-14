@@ -67,8 +67,10 @@ const logBase = async function (type, args) {
             let argData = clone(args);
             loopInteraction(argData);
 
-            if (objType(argData, 'object') || Array.isArray(argData)) {
-                argData = JSON.stringify(argData, null, 2);
+            for (const item in argData) {
+                if (objType(argData[item], 'object') || Array.isArray(argData[item])) {
+                    argData[item] = JSON.stringify(argData[item], null, 2);
+                }
             }
 
             const result = await logger[type].apply(logger, argData);
