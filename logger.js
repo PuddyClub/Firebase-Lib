@@ -12,7 +12,7 @@ const loopInteraction = function (data) {
         // Checking
         if (objType(data[item], 'object') || Array.isArray(data[item])) {
             interaction[item] = {};
-            interaction[item] = await loopInteraction(data[item]);
+            interaction[item] = loopInteraction(data[item]);
         } 
         
         // BigInt
