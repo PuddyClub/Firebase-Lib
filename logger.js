@@ -7,17 +7,17 @@ const loopInteraction = async function (data) {
 
     // Check Data
     const interaction = {};
-    const checkData = async function (item, itemData) {
+    const checkData = async function (item) {
 
         // Checking
-        if (objType(itemData, 'object') || Array.isArray(itemData)) {
+        if (objType(data[item], 'object') || Array.isArray(data[item])) {
             interaction[item] = {};
-            interaction[item] = await loopInteraction(itemData);
+            interaction[item] = await loopInteraction(data[item]);
         } 
         
         // BigInt
-        else if (objType(itemData, 'bigint')) {
-            data[item] = { _type_object: 'BIGINT', value: itemData.toString() };
+        else if (objType(data[item], 'bigint')) {
+            data[item] = { _type_object: 'BIGINT', value: data[item].toString() };
         }
 
         // Complete
@@ -28,7 +28,7 @@ const loopInteraction = async function (data) {
     // Data
     if (objType(data, 'object') || Array.isArray(data)) {
         for (const item in data) {
-            await checkData(item, data[item]);
+            await checkData(item);
         }
     } else {
 

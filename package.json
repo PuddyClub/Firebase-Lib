@@ -20,6 +20,7 @@
     },
     "homepage": "https://github.com/PuddyClub/Firebase-Lib#readme",
     "dependencies": {
+        "@tinypudding/puddy-lib": "^1.1.40",
         "lodash": "^4.17.21"
     }
 }
