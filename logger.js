@@ -1,5 +1,6 @@
 // Prepare Log
 let logger = null;
+// const { Logger } = require('@firebase/logger');
 
 // Module Base
 const logBase = async  function (type, args) {

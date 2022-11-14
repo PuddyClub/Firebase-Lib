@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/TinyPudding/Firebase-Lib.git"
+        "url": "git+https://github.com/PuddyClub/Firebase-Lib.git"
     },
     "keywords": [
         "firebase"
@@ -16,9 +16,9 @@
     "author": "Yasmin Seidel (JasminDreasond)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/TinyPudding/Firebase-Lib/issues"
+        "url": "https://github.com/PuddyClub/Firebase-Lib/issues"
     },
-    "homepage": "https://github.com/TinyPudding/Firebase-Lib#readme",
+    "homepage": "https://github.com/PuddyClub/Firebase-Lib#readme",
     "dependencies": {
         "lodash": "^4.17.21"
     }
