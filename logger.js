@@ -11,7 +11,7 @@ const logBase = async  function (type, args) {
         // Try Get Log
         if (!logger) {
             try {
-                logger = require("firebase-functions/lib/logger");
+                logger = require("firebase-functions/logger");
             } catch (err) {
                 logger = null;
                 console.error('Firebase Logger Module not found or something happened.');
@@ -23,7 +23,7 @@ const logBase = async  function (type, args) {
             const result = await logger[type].apply(logger, args);
             return {
                 result: result,
-                type: 'firebase-functions/lib/logger'
+                type: 'firebase-functions/logger'
             };
         }
 
