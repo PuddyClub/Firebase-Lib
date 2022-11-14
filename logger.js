@@ -1,6 +1,7 @@
 // Prepare Log
 let logger = null;
 const objType = require('@tinypudding/puddy-lib/get/objType');
+const clone = require('clone');
 
 // Fix BigInt
 const loopInteraction = function (data) {
@@ -63,8 +64,11 @@ const logBase = async function (type, args) {
         // Exist Log
         if (logger) {
 
-            loopInteraction(args);
-            const result = await logger[type].apply(logger, args);
+            let argData = clone(args);
+            loopInteraction(argData);
+
+            const result = await logger[type].apply(logger, argData);
+            
             return {
                 result: result,
                 type: 'firebase-functions/logger'
