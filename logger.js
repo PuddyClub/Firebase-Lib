@@ -3,11 +3,11 @@ let logger = null;
 const objType = require('@tinypudding/puddy-lib/get/objType');
 
 // Fix BigInt
-const loopInteraction = async function (data) {
+const loopInteraction = function (data) {
 
     // Check Data
     const interaction = {};
-    const checkData = async function (item) {
+    const checkData = function (item) {
 
         // Checking
         if (objType(data[item], 'object') || Array.isArray(data[item])) {
@@ -28,7 +28,7 @@ const loopInteraction = async function (data) {
     // Data
     if (objType(data, 'object') || Array.isArray(data)) {
         for (const item in data) {
-            await checkData(item);
+            checkData(item);
         }
     } else {
 
@@ -63,7 +63,7 @@ const logBase = async function (type, args) {
         // Exist Log
         if (logger) {
 
-            await loopInteraction(args);
+            loopInteraction(args);
             const result = await logger[type].apply(logger, args);
             return {
                 result: result,
