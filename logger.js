@@ -73,9 +73,11 @@ const logBase = async function (type, args) {
                     argData = JSON.stringify(argData, null, 2);
                 }
 
+                args[item] = argData;
+
             }
 
-            const result = await logger[type].apply(logger, argData);
+            const result = await logger[type].apply(logger, args);
 
             return {
                 result: result,
