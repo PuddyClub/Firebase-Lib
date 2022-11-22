@@ -21,6 +21,16 @@ class saveAsync {
 
     }
 
+    _runCallbacks(type, data) {
+        if (Array.isArray(this.callbacks[type])) {
+            for (const item in this.callbacks[type]) {
+                if (typeof this.callbacks[type][item] === 'function') {
+                    this.callbacks[type][item](data);
+                }
+            }
+        }
+    }
+
     // Action
     action() {
 
@@ -37,25 +47,25 @@ class saveAsync {
                     if (post.data) {
 
                         this.db[post.type](post.data).then(() => {
-                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](post.data); }
+                            this._runCallbacks(post.type, post.data);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
 
                     } else {
                         this.db[post.type]().then(() => {
-                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](); }
+                            this._runCallbacks(post.type);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     }
                 } else {
                     if (post.data) {
                         this.db.child(post.where)[post.type](post.data).then(() => {
-                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](post.data); }
+                            this._runCallbacks(post.type, post.data);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     } else {
                         this.db.child(post.where)[post.type]().then(() => {
-                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](); }
+                            this._runCallbacks(post.type);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     }
