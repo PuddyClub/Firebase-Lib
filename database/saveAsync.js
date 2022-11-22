@@ -21,11 +21,11 @@ class saveAsync {
 
     }
 
-    _runCallbacks(type, data) {
+    _runCallbacks(type, data, where) {
         if (Array.isArray(this.callbacks[type])) {
             for (const item in this.callbacks[type]) {
                 if (typeof this.callbacks[type][item] === 'function') {
-                    this.callbacks[type][item](data);
+                    this.callbacks[type][item](data, where);
                 }
             }
         }
@@ -60,12 +60,12 @@ class saveAsync {
                 } else {
                     if (post.data) {
                         this.db.child(post.where)[post.type](post.data).then(() => {
-                            this._runCallbacks(post.type, post.data);
+                            this._runCallbacks(post.type, post.data, post.where);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     } else {
                         this.db.child(post.where)[post.type]().then(() => {
-                            this._runCallbacks(post.type);
+                            this._runCallbacks(post.type, null, post.where);
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     }
