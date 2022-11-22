@@ -5,8 +5,20 @@ class saveAsync {
     constructor(db) {
         this.db = db;
         this.list = [];
+        this.callbacks = {};
         this.using = false;
         return this;
+    }
+
+    on(where, callback) {
+
+        if (!Array.isArray(this.callbacks[where])) {
+            this.callbacks[where] = [];
+        }
+
+        this.callbacks[where].push(callback);
+        return true;
+
     }
 
     // Action
@@ -23,15 +35,29 @@ class saveAsync {
             try {
                 if (typeof post.where !== "string") {
                     if (post.data) {
-                        this.db[post.type](post.data).then(() => { tinyThis.action(); return; }).catch(err => { console.error(err); return; });
+
+                        this.db[post.type](post.data).then(() => {
+                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](post.data); }
+                            tinyThis.action(); return;
+                        }).catch(err => { console.error(err); return; });
+
                     } else {
-                        this.db[post.type]().then(() => { tinyThis.action(); return; }).catch(err => { console.error(err); return; });
+                        this.db[post.type]().then(() => {
+                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](); }
+                            tinyThis.action(); return;
+                        }).catch(err => { console.error(err); return; });
                     }
                 } else {
                     if (post.data) {
-                        this.db.child(post.where)[post.type](post.data).then(() => { tinyThis.action(); return; }).catch(err => { console.error(err); return; });
+                        this.db.child(post.where)[post.type](post.data).then(() => {
+                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](post.data); }
+                            tinyThis.action(); return;
+                        }).catch(err => { console.error(err); return; });
                     } else {
-                        this.db.child(post.where)[post.type]().then(() => { tinyThis.action(); return; }).catch(err => { console.error(err); return; });
+                        this.db.child(post.where)[post.type]().then(() => {
+                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](); }
+                            tinyThis.action(); return;
+                        }).catch(err => { console.error(err); return; });
                     }
                 }
             }
