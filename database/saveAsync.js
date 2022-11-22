@@ -37,25 +37,25 @@ class saveAsync {
                     if (post.data) {
 
                         this.db[post.type](post.data).then(() => {
-                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](post.data); }
+                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](post.data); }
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
 
                     } else {
                         this.db[post.type]().then(() => {
-                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](); }
+                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](); }
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     }
                 } else {
                     if (post.data) {
                         this.db.child(post.where)[post.type](post.data).then(() => {
-                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](post.data); }
+                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](post.data); }
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     } else {
                         this.db.child(post.where)[post.type]().then(() => {
-                            if (typeof this.callbacks[post.type] === 'function') { this.callbacks[post.type](); }
+                            if (Array.isArray(this.callbacks[post.type])) { this.callbacks[post.type](); }
                             tinyThis.action(); return;
                         }).catch(err => { console.error(err); return; });
                     }
