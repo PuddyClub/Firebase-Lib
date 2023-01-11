@@ -64,20 +64,28 @@ const logBase = async function (type, args) {
         // Exist Log
         if (logger) {
 
-            for (const item in args) {
+            let consoleData;
 
-                let argData = clone(args[item]);
+            if(objType(args, 'error')) {
+                consoleData = JSON.parse(JSON.stringify(args, Object.getOwnPropertyNames(args)));
+            } else {
+                consoleData = args;
+            }
+
+            for (const item in consoleData) {
+
+                let argData = clone(consoleData[item]);
                 loopInteraction(argData);
 
                 if (objType(argData, 'object') || Array.isArray(argData)) {
                     argData = JSON.stringify(argData, null, 2);
                 }
 
-                args[item] = argData;
+                consoleData[item] = argData;
 
             }
 
-            const result = await logger[type].apply(logger, args);
+            const result = await logger[type].apply(logger, consoleData);
 
             return {
                 result: result,
