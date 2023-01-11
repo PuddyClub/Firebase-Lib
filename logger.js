@@ -65,7 +65,6 @@ const logBase = async function (type, args) {
         if (logger) {
 
             let consoleData;
-
             if(objType(args, 'error')) {
                 consoleData = JSON.parse(JSON.stringify(args, Object.getOwnPropertyNames(args)));
             } else {
